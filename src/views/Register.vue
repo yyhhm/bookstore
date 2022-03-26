@@ -9,7 +9,8 @@
             </div>
             <el-form :rules="rules" :model="ruleForm" ref="registerForm">
                 <el-form-item prop="username">
-                    <el-input type="text" v-model.trim="ruleForm.username" autocomplete="off" placeholder="请输入手机号码">
+                    <el-input type="text" v-model.trim="ruleForm.username" 
+                    autocomplete="off" placeholder="请输入手机号码">
                         <template slot="prepend"><i class="el-icon-s-custom"></i></template>
                     </el-input>
                 </el-form-item>
