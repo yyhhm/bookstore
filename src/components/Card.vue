@@ -1,20 +1,39 @@
 <template>
     <div class="card">
         <el-row :gutter="gutter">
-            <el-col :span="wid" v-for="(item,index) in cardData" :key="index">
-                <el-card @mouseenter.native="hoverIndex = index" :class="{shadow:index==hoverIndex}" @mouseleave.native="hoverIndex = -1" class="el-card">
-                    <div style="height: 160px;width: 160px;margin:5px auto ;">
-                        <img :src="item.bookCoverImg.split('#')[0]" class="image" @click="onChange(item.bookId)" :class="{big:index==hoverIndex}">
+            <el-col :span="wid" v-for="(item, index) in cardData" :key="index">
+                <el-card
+                    @mouseenter.native="hoverIndex = index"
+                    :class="{ shadow: index == hoverIndex }"
+                    @mouseleave.native="hoverIndex = -1"
+                    class="el-card"
+                >
+                    <div style="height: 160px; width: 160px; margin: 5px auto">
+                        <img
+                            :src="item.bookCoverImg.split('#')[0]"
+                            class="image"
+                            @click="onChange(item.bookId)"
+                            :class="{ big: index == hoverIndex }"
+                        />
                     </div>
 
-                    <div style="padding: 5px; text-align: center;">
-                        <p style="height: 3em;">{{item.bookName}}</p>
-                        <span style="color: #e4393c;font-size: 16px;">￥{{item.sellingPrice}}</span>
-                        <span style="color: #999999;">|</span>
-                        <span style="text-decoration: line-through;color: #999999;font-size: 12px;">￥{{item.originalPrice}}</span>
+                    <div style="padding: 5px; text-align: center">
+                        <p style="height: 3em">{{ item.bookName }}</p>
+                        <span style="color: #e4393c; font-size: 16px"
+                            >￥{{ item.sellingPrice }}</span
+                        >
+                        <span style="color: #999999">|</span>
+                        <span style="text-decoration: line-through; color: #999999; font-size: 12px"
+                            >￥{{ item.originalPrice }}</span
+                        >
                     </div>
-                    <div class="del-but" v-show="index==hoverIndex" v-if="showDel">
-                        <el-button type="text" icon="el-icon-delete" @click="delCollect(item.collectId)" style="color: #afa6a3;"></el-button>
+                    <div class="del-but" v-show="index == hoverIndex" v-if="showDel">
+                        <el-button
+                            type="text"
+                            icon="el-icon-delete"
+                            @click="delCollect(item.collectId)"
+                            style="color: #afa6a3"
+                        ></el-button>
                     </div>
                 </el-card>
             </el-col>
@@ -26,13 +45,19 @@
 export default {
     name: 'Card',
     props: {
-        wid: '',
+        wid: { type: String },
         cardData: {
             type: Array,
             default: () => [],
         },
-        showDel: false,
-        gutter: 0,
+        showDel: {
+            type: Boolean,
+            default: false,
+        },
+        gutter: {
+            type: Number,
+            default: 0,
+        },
         reload: Function,
     },
     data() {

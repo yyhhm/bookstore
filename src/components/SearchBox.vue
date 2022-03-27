@@ -1,7 +1,7 @@
 <template>
     <div class="search">
         <router-link to="/" class="logo">
-            <img src="../assets/logo.jpg" alt="">
+            <img src="../assets/logo.jpg" alt="" />
         </router-link>
         <!-- <div class="logo" @click="returnIndex">
       <img src="../assets/logo.jpg" alt="">
@@ -12,10 +12,18 @@
             </el-input>
         </div>
         <div class="shopping-cart" v-show="!$route.meta.isShow">
-            <el-badge :value="this.$store.getters.shopCartNum" class="item" v-if="this.$store.state.login">
-                <el-button icon="el-icon-shopping-cart-2" size="big" @click="goCart">购物车</el-button>
+            <el-badge
+                :value="this.$store.getters.shopCartNum"
+                class="item"
+                v-if="this.$store.state.login"
+            >
+                <el-button icon="el-icon-shopping-cart-2" size="big" @click="goCart"
+                    >购物车</el-button
+                >
             </el-badge>
-            <el-button icon="el-icon-shopping-cart-2" size="big" @click="goCart" v-else>购物车</el-button>
+            <el-button icon="el-icon-shopping-cart-2" size="big" @click="goCart" v-else
+                >购物车</el-button
+            >
         </div>
     </div>
 </template>

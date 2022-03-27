@@ -1,13 +1,11 @@
 <template>
     <div>
-
         <Swiper></Swiper>
-        <h3 style="margin:30px 60px;">新书推荐</h3>
-        <hr style="width:100%;">
+        <h3 style="margin: 30px 60px">新书推荐</h3>
+        <hr style="width: 100%" />
         <div class="card">
             <Card :wid="wid" :cardData="cardData"></Card>
         </div>
-
     </div>
 </template>
 

@@ -25,7 +25,7 @@ const routes = [
                 name: 'Index',
                 component: () => import('../views/Index.vue'),
                 meta: {
-                    //显示二级分类
+                    // 显示二级分类
                     showAlways: true,
                 },
             },
@@ -39,9 +39,9 @@ const routes = [
                 name: 'ShoppingCart',
                 component: () => import('../views/ShoppingCart.vue'),
                 meta: {
-                    //隐藏搜索框
+                    // 隐藏搜索框
                     isShow: true,
-                    //该页面是否需要登录
+                    // 该页面是否需要登录
                     auth: true,
                 },
             },

@@ -1,21 +1,42 @@
 <template>
     <div class="cate-nav" v-show="!$route.meta.isShow">
         <div class="nav-con">
-            <div class="all-categories hover-pointer" @mouseenter="showFirstList = true" @mouseleave="showFirstList = false">
-                全部商品分类</div>
+            <div
+                class="all-categories hover-pointer"
+                @mouseenter="showFirstList = true"
+                @mouseleave="showFirstList = false"
+            >
+                全部商品分类
+            </div>
         </div>
         <!-- 全部商品分类 -->
-        <div class="cate-list" v-show="$route.meta.showAlways || showFirstList" @mouseenter="showFirstList = true" @mouseleave="showFirstList = false">
+        <div
+            class="cate-list"
+            v-show="$route.meta.showAlways || showFirstList"
+            @mouseenter="showFirstList = true"
+            @mouseleave="showFirstList = false"
+        >
             <!-- 第一级分类 -->
             <div class="nav-side">
                 <ul>
-                    <li v-for="(item, index) in cateList" :key="index" @mouseleave="panel = false" @mouseenter="showDetail(index),hoverIndex=-1" :class="{isHover:index==hoverIndex}">
-                        <span class="nav-side-item">{{item.categoryName}}</span>
+                    <li
+                        v-for="(item, index) in cateList"
+                        :key="index"
+                        @mouseleave="panel = false"
+                        @mouseenter="showDetail(index), (hoverIndex = -1)"
+                        :class="{ isHover: index == hoverIndex }"
+                    >
+                        <span class="nav-side-item">{{ item.categoryName }}</span>
                     </li>
                 </ul>
             </div>
             <!-- 展开分类 -->
-            <div class="detail-item-panel" v-show="panel" @mouseenter="panel = true,hoverIndex=hoverIndex2" @mouseleave="panel = false, hoverIndex=-1">
+            <div
+                class="detail-item-panel"
+                v-show="panel"
+                @mouseenter=";(panel = true), (hoverIndex = hoverIndex2)"
+                @mouseleave=";(panel = false), (hoverIndex = -1)"
+            >
                 <ul>
                     <li v-for="(items, index) in panelData" :key="index" class="detail-item-row">
                         <span class="detail-item-title" @click="secondCategory(items.categoryId)">
@@ -23,7 +44,13 @@
                             <i class="el-icon-arrow-right"></i>
                         </span>
                         <div>
-                            <span v-for="(item, subIndex) in items.children" :key="subIndex" class="detail-item" @click="thirdCategory(item.categoryId)">{{ item.categoryName }}</span>
+                            <span
+                                v-for="(item, subIndex) in items.children"
+                                :key="subIndex"
+                                class="detail-item"
+                                @click="thirdCategory(item.categoryId)"
+                                >{{ item.categoryName }}</span
+                            >
                         </div>
                     </li>
                 </ul>
@@ -49,7 +76,7 @@ export default {
             showFirstList: false, // 始终展示一级列表
             cateList: [], // 商品分类
             hoverIndex: -1,
-            //临时index
+            // 临时index
             hoverIndex2: -1,
         }
     },

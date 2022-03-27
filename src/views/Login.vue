@@ -1,22 +1,31 @@
 <template>
     <div class="back">
         <div class="login">
-            <div style="line-height: 50px;text-align: center;">
-                <span style="color: #007AFF;">用户登录</span>
+            <div style="line-height: 50px; text-align: center">
+                <span style="color: #007aff">用户登录</span>
                 <router-link to="/">
-                    <span style="float: right;" class="ziti">首页</span>
+                    <span style="float: right" class="ziti">首页</span>
                 </router-link>
             </div>
 
             <el-form :rules="rules" :model="ruleForm" ref="loginForm">
                 <el-form-item prop="username">
-                    <el-input type="text" v-model.trim="ruleForm.username" autocomplete="off" placeholder="请输入手机号码">
+                    <el-input
+                        type="text"
+                        v-model.trim="ruleForm.username"
+                        autocomplete="off"
+                        placeholder="请输入手机号码"
+                    >
                         <template slot="prepend"><i class="el-icon-s-custom"></i></template>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-
-                    <el-input :type="pwdType" v-model.trim="ruleForm.password" autocomplete="off" placeholder="请输入密码">
+                    <el-input
+                        :type="pwdType"
+                        v-model.trim="ruleForm.password"
+                        autocomplete="off"
+                        placeholder="请输入密码"
+                    >
                         <i slot="prepend" class="el-icon-unlock"></i>
                         <i slot="suffix" class="el-input__icon el-icon-view" @click="showPwd"></i>
                     </el-input>
@@ -24,27 +33,35 @@
                 <el-form-item prop="code">
                     <el-row>
                         <el-col :span="14">
-                            <el-input type="text" v-model="ruleForm.code" auto-complete="off"></el-input>
+                            <el-input
+                                type="text"
+                                v-model="ruleForm.code"
+                                auto-complete="off"
+                            ></el-input>
                         </el-col>
                         <el-col :span="10">
                             <!-- <div class="login-code" @click="refreshCode"> -->
                             <!--验证码组件-->
-                            <s-identify :identifyCode="identifyCode" @click.native="refreshCode"></s-identify>
+                            <s-identify
+                                :identifyCode="identifyCode"
+                                @click.native="refreshCode"
+                            ></s-identify>
                             <!-- </div> -->
                         </el-col>
                     </el-row>
                 </el-form-item>
                 <el-form-item>
-                    <el-button style="width: 100%" type="primary" @click="submitForm">立即登录</el-button>
+                    <el-button style="width: 100%" type="primary" @click="submitForm"
+                        >立即登录</el-button
+                    >
                 </el-form-item>
                 <el-form-item>
-                    <router-link to='/register'>
+                    <router-link to="/register">
                         <el-button style="width: 100%">马上去注册成新用户</el-button>
                     </router-link>
                 </el-form-item>
             </el-form>
         </div>
-
     </div>
 </template>
 
@@ -142,7 +159,7 @@ export default {
                             password: this.ruleForm.password,
                         })
                         .then(res => {
-                            if (res.code == 200) {
+                            if (res.code === 200) {
                                 this.$message.success('登录成功')
                                 console.log('ff' + res.data)
                                 window.localStorage.setItem('token', res.data)
@@ -166,13 +183,16 @@ export default {
         },
         makeCode(o, l) {
             for (let i = 0; i < l; i++) {
-                this.identifyCode += this.identifyCodes[this.randomNum(0, this.identifyCodes.length)]
+                this.identifyCode +=
+                    this.identifyCodes[this.randomNum(0, this.identifyCodes.length)]
             }
         },
         showPwd() {
             this.pwdType === 'password' ? (this.pwdType = '') : (this.pwdType = 'password')
-            let e = document.getElementsByClassName('el-icon-view')[0]
-            this.pwdType == '' ? e.setAttribute('style', 'color: #409EFF') : e.setAttribute('style', 'color: #c0c4cc')
+            const e = document.getElementsByClassName('el-icon-view')[0]
+            this.pwdType === ''
+                ? e.setAttribute('style', 'color: #409EFF')
+                : e.setAttribute('style', 'color: #c0c4cc')
         },
     },
     created() {

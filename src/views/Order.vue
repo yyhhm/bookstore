@@ -1,79 +1,131 @@
 <template>
     <div class="body">
         <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick" stretch>
-            <el-tab-pane v-for="(item, index) in tabsName" :key="index" :label="item.name" :name="item.status" lazy>
+            <el-tab-pane
+                v-for="(item, index) in tabsName"
+                :key="index"
+                :label="item.name"
+                :name="item.status"
+                lazy
+            >
                 <div class="order-content" v-loading="loading">
-                    <div class="order-list" v-for="(order, onderIndex) in orderList" :key="onderIndex">
+                    <div
+                        class="order-list"
+                        v-for="(order, onderIndex) in orderList"
+                        :key="onderIndex"
+                    >
                         <div class="order-header">
                             <div>
-                                {{order.createTime | time}}&nbsp; &nbsp; &nbsp;订单号：{{ order.orderNo }}
+                                {{ order.createTime | time }}&nbsp; &nbsp; &nbsp;订单号：{{
+                                    order.orderNo
+                                }}
                             </div>
-
                         </div>
                         <div class="order-body">
                             <div class="goods-list">
-                                <div v-for="(goods, goodsIndex) in order.orderItems" :key="goodsIndex">
-
-                                    <img :src="goods.bookCoverImg" alt="" @click="onChange(goods.bookId)" />
+                                <div
+                                    v-for="(goods, goodsIndex) in order.orderItems"
+                                    :key="goodsIndex"
+                                >
+                                    <img
+                                        :src="goods.bookCoverImg"
+                                        alt=""
+                                        @click="onChange(goods.bookId)"
+                                    />
                                     <div>{{ goods.bookName }}</div>
                                     <div>
-                                        <span style="text-decoration: line-through;display:block;color: #999999;font-size: 14px;">￥{{goods.originalPrice.toFixed(2)}}
+                                        <span
+                                            style="
+                                                text-decoration: line-through;
+                                                display: block;
+                                                color: #999999;
+                                                font-size: 14px;
+                                            "
+                                            >￥{{ goods.originalPrice.toFixed(2) }}
                                         </span>
-                                        <span style="color: #000000;font-size: 16px;  display:block;">￥{{goods.sellingPrice.toFixed(2)}}</span>
-
+                                        <span
+                                            style="color: #000000; font-size: 16px; display: block"
+                                            >￥{{ goods.sellingPrice.toFixed(2) }}</span
+                                        >
                                     </div>
-                                    <div>
-                                        x{{goods.bookCount}}
+                                    <div>x{{ goods.bookCount }}</div>
+                                    <div v-if="goods.isAppraise == 1">
+                                        <el-button
+                                            type="primary"
+                                            size="mini"
+                                            icon="el-icon-chat-dot-round"
+                                            @click="appraise(goods.orderItemId)"
+                                            >去评价</el-button
+                                        >
                                     </div>
-                                    <div v-if="goods.isAppraise==1">
-                                        <el-button type="primary" size="mini" icon="el-icon-chat-dot-round" @click="appraise(goods.orderItemId)">去评价</el-button>
-                                    </div>
-                                    <div v-if="goods.isAppraise==2">
+                                    <div v-if="goods.isAppraise == 2">
                                         <span>评价完成</span>
                                     </div>
-
                                 </div>
                             </div>
-                            <div class="order-totalPrice">
-                                ￥{{order.totalPrice}}
-                            </div>
+                            <div class="order-totalPrice">￥{{ order.totalPrice }}</div>
                             <div class="order-status">
                                 <div>
-                                    {{order.orderStatus | orderMap}}
+                                    {{ order.orderStatus | orderMap }}
                                 </div>
-
                             </div>
                             <div>
                                 <div>
-                                    <el-button type="text" v-if="order.orderStatus==0" @click="payClick(order.orderId)">去支付</el-button>
-                                    <el-button type="text" v-if="order.orderStatus==3" @click="handleComfirm(order.orderId)">确认收货
+                                    <el-button
+                                        type="text"
+                                        v-if="order.orderStatus == 0"
+                                        @click="payClick(order.orderId)"
+                                        >去支付</el-button
+                                    >
+                                    <el-button
+                                        type="text"
+                                        v-if="order.orderStatus == 3"
+                                        @click="handleComfirm(order.orderId)"
+                                        >确认收货
                                     </el-button>
                                 </div>
                                 <div>
-                                    <el-button type="text" @click="getDetail(order.orderId)">订单详情</el-button>
+                                    <el-button type="text" @click="getDetail(order.orderId)"
+                                        >订单详情</el-button
+                                    >
                                 </div>
 
                                 <div>
-                                    <el-button type="text" v-if="order.orderStatus==0" @click="closeOrder(order.orderId)">关闭订单</el-button>
+                                    <el-button
+                                        type="text"
+                                        v-if="order.orderStatus == 0"
+                                        @click="closeOrder(order.orderId)"
+                                        >关闭订单</el-button
+                                    >
                                 </div>
                                 <div>
-                                    <el-button type="text" v-if="order.orderStatus>0 && order.orderStatus<4" @click="refund(order.orderId)">退款</el-button>
+                                    <el-button
+                                        type="text"
+                                        v-if="order.orderStatus > 0 && order.orderStatus < 4"
+                                        @click="refund(order.orderId)"
+                                        >退款</el-button
+                                    >
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
             </el-tab-pane>
         </el-tabs>
         <div class="block">
-            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5,10,15,20]" :page-size="pageSize"
-                layout="total, sizes, prev, pager, next, jumper" :total="total">
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[5, 10, 15, 20]"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total"
+            >
             </el-pagination>
         </div>
-        <PayDialog :orderId="orderId" ref='addPayDialog' :reload="getOrderList" :isOrder="true" />
-        <AppraiseDialog ref='addAppraiseDialog' :reload="getOrderList" />
+        <PayDialog :orderId="orderId" ref="addPayDialog" :reload="getOrderList" :isOrder="true" />
+        <AppraiseDialog ref="addAppraiseDialog" :reload="getOrderList" />
     </div>
 </template>
 
@@ -91,7 +143,7 @@ export default {
             loading: true,
             orderId: 0,
             activeName: '6',
-            //查询条件
+            // 查询条件
             currentPage: 1,
             pageSize: 5,
             /* 总数据条数 */
@@ -198,11 +250,11 @@ export default {
             this.getOrderList()
         },
         getOrderList() {
-            let param = {
+            const param = {
                 currentPage: this.currentPage,
                 pageSize: this.pageSize,
             }
-            if (parseInt(this.activeName) != 6) {
+            if (parseInt(this.activeName) !== 6) {
                 param.orderStatus = parseInt(this.activeName)
             }
             this.$axios

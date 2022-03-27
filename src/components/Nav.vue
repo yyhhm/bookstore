@@ -1,15 +1,12 @@
 <template>
-
     <ul class="nav">
         <li v-if="this.$store.state.login">
-            <span>欢迎{{this.$store.getters.userName}} | </span>
+            <span>欢迎{{ this.$store.getters.userName }} | </span>
             <el-button type="text" class="ziti" @click="logout">退出</el-button>
         </li>
         <li v-else>
-
             <router-link to="/login" class="ziti">登录</router-link> |
             <router-link to="/register" class="ziti"> 注册</router-link>
-
         </li>
         <li>
             <router-link to="/information" class="ziti">个人中心</router-link>
@@ -17,14 +14,11 @@
         </li>
         <li>
             <router-link to="/order" class="ziti">我的订单</router-link>
-
         </li>
         <li>
             <router-link to="/collection" class="ziti">我的收藏</router-link>
-
         </li>
     </ul>
-
 </template>
 
 <script>
@@ -55,7 +49,7 @@ export default {
 
         logout() {
             this.$axios.delete('/logout').then(res => {
-                if (res.code == 200) {
+                if (res.code === 200) {
                     // sessionStorage.setItem("isLogin", false)
                     this.$store.commit('SET_IsLogin', false)
                     window.localStorage.removeItem('token')

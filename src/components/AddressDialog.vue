@@ -1,12 +1,29 @@
 <template>
-    <el-dialog :title="type == 'add' ? '添加地址' : '修改地址'" :close-on-click-modal="false" :visible.sync="dialogFormVisible" width="600px" @close="handleClose">
-
+    <el-dialog
+        :title="type == 'add' ? '添加地址' : '修改地址'"
+        :close-on-click-modal="false"
+        :visible.sync="dialogFormVisible"
+        width="600px"
+        @close="handleClose"
+    >
         <el-form :model="ruleForm" :rules="rules" ref="formRef" label-width="100px">
             <el-form-item label="所在地区:" prop="selectedOptions">
-                <el-cascader :options="areaSelectData" @change="handleChange" size="large" v-model="ruleForm.selectedOptions" placeholder="请选择您所在的城市" />
+                <el-cascader
+                    :options="areaSelectData"
+                    @change="handleChange"
+                    size="large"
+                    v-model="ruleForm.selectedOptions"
+                    placeholder="请选择您所在的城市"
+                />
             </el-form-item>
             <el-form-item label="详细地址:" prop="detailAddress">
-                <el-input type="textarea" v-model="ruleForm.detailAddress" placeholder="街道或门牌号等" :rows="4" maxlength="100">
+                <el-input
+                    type="textarea"
+                    v-model="ruleForm.detailAddress"
+                    placeholder="街道或门牌号等"
+                    :rows="4"
+                    maxlength="100"
+                >
                 </el-input>
             </el-form-item>
             <el-row>
@@ -21,13 +38,11 @@
                     </el-form-item>
                 </el-col>
             </el-row>
-
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="dialogFormVisible = false">取 消</el-button>
             <el-button type="primary" @click="submitForm">确 定</el-button>
         </div>
-
     </el-dialog>
 </template>
 
@@ -116,7 +131,7 @@ export default {
                                 detailAddress: this.ruleForm.detailAddress,
                             })
                             .then(res => {
-                                if (res.code == 200) {
+                                if (res.code === 200) {
                                     this.dialogFormVisible = false
 
                                     this.reload()
@@ -134,7 +149,7 @@ export default {
                                 detailAddress: this.ruleForm.detailAddress,
                             })
                             .then(res => {
-                                if (res.code == 200) {
+                                if (res.code === 200) {
                                     this.dialogFormVisible = false
 
                                     this.reload()
@@ -147,14 +162,14 @@ export default {
         },
         async getDetail(id) {
             await this.$axios.get(`/address/${id}`).then(res => {
-                ;(this.ruleForm.name = res.data.name),
-                    (this.ruleForm.phone = res.data.phone),
-                    (this.ruleForm.detailAddress = res.data.detailAddress),
-                    (this.ruleForm.selectedOptions = [
-                        TextToCode[res.data.provinceName].code,
-                        TextToCode[res.data.provinceName][res.data.cityName].code,
-                        TextToCode[res.data.provinceName][res.data.cityName][res.data.regionName].code,
-                    ])
+                this.ruleForm.name = res.data.name
+                this.ruleForm.phone = res.data.phone
+                this.ruleForm.detailAddress = res.data.detailAddress
+                this.ruleForm.selectedOptions = [
+                    TextToCode[res.data.provinceName].code,
+                    TextToCode[res.data.provinceName][res.data.cityName].code,
+                    TextToCode[res.data.provinceName][res.data.cityName][res.data.regionName].code,
+                ]
                 console.log('ss+' + this.ruleForm.selectedOptions)
             })
         },
@@ -162,5 +177,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

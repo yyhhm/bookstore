@@ -2,55 +2,76 @@
     <div class="body">
         <div class="header">
             <h3>我的评价</h3>
-            <el-button type="text" @click="handleDelete()"><i class="el-icon-delete
-"></i>删除</el-button>
+            <el-button type="text" @click="handleDelete()"
+                ><i class="el-icon-delete"></i>删除</el-button
+            >
         </div>
 
-        <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
-            <el-table-column type="selection" width="80">
-            </el-table-column>
+        <el-table
+            ref="multipleTable"
+            :data="tableData"
+            tooltip-effect="dark"
+            style="width: 100%"
+            @selection-change="handleSelectionChange"
+        >
+            <el-table-column type="selection" width="80"> </el-table-column>
             <el-table-column label="商品信息" width="200">
                 <template #default="scope">
-                    <img @click="onChange(scope.row.orderItem.bookId)" style="width: 100px; height: 100px;" :src="scope.row.orderItem.bookCoverImg.split('#')[0]" alt="主图">
-                    <p>{{scope.row.orderItem.bookName}}</p>
+                    <img
+                        @click="onChange(scope.row.orderItem.bookId)"
+                        style="width: 100px; height: 100px"
+                        :src="scope.row.orderItem.bookCoverImg.split('#')[0]"
+                        alt="主图"
+                    />
+                    <p>{{ scope.row.orderItem.bookName }}</p>
                 </template>
-
             </el-table-column>
-            <el-table-column width="100" prop="grade" label="评分">
-
-            </el-table-column>
-            <el-table-column width="200" label="评价" :show-overflow-tooltip='true'>
+            <el-table-column width="100" prop="grade" label="评分"> </el-table-column>
+            <el-table-column width="200" label="评价" :show-overflow-tooltip="true">
                 <template #default="scope">
-                    <div v-if="scope.row.appraiseContact.length>0">
-                        <el-popover placement="top-start" width="300" trigger="hover" :disabled="scope.row.appraiseContact.length <= 10">
+                    <div v-if="scope.row.appraiseContact.length > 0">
+                        <el-popover
+                            placement="top-start"
+                            width="300"
+                            trigger="hover"
+                            :disabled="scope.row.appraiseContact.length <= 10"
+                        >
                             <div>{{ scope.row.appraiseContact }}</div>
-                            <span slot="reference" v-if="scope.row.appraiseContact.length <= 10">{{scope.row.appraiseContact}}</span>
-                            <span slot="reference" v-if="scope.row.appraiseContact.length > 10">{{scope.row.appraiseContact.substr(0, 10) + "..."}}</span>
+                            <span slot="reference" v-if="scope.row.appraiseContact.length <= 10">{{
+                                scope.row.appraiseContact
+                            }}</span>
+                            <span slot="reference" v-if="scope.row.appraiseContact.length > 10">{{
+                                scope.row.appraiseContact.substr(0, 10) + '...'
+                            }}</span>
                         </el-popover>
                     </div>
                     <div v-else>此用户没有评价</div>
                 </template>
-
             </el-table-column>
             <el-table-column width="200" label="发表时间">
                 <template #default="scope">
-                    <span>{{scope.row.createTime | time}}</span>
-
+                    <span>{{ scope.row.createTime | time }}</span>
                 </template>
             </el-table-column>
 
             <el-table-column prop="" label="操作">
                 <template #default="scope">
-
-                    <el-button @click="handleDelete(scope.row.appraiseId)" type="text" size="small">删除</el-button>
-
+                    <el-button @click="handleDelete(scope.row.appraiseId)" type="text" size="small"
+                        >删除</el-button
+                    >
                 </template>
-
             </el-table-column>
         </el-table>
         <div class="block">
-            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[8,12,16,20]" :page-size="pageSize"
-                layout="total, sizes, prev, pager, next, jumper" :total="total">
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[8, 12, 16, 20]"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total"
+            >
             </el-pagination>
         </div>
     </div>
@@ -62,7 +83,7 @@ export default {
     data() {
         return {
             tableData: [],
-            //查询条件
+            // 查询条件
             currentPage: 1,
             pageSize: 10,
             /* 总数据条数 */
@@ -110,7 +131,7 @@ export default {
             if (id) {
                 ids = [id]
             } else {
-                if (this.multipleSelection.length == 0) {
+                if (this.multipleSelection.length === 0) {
                     this.$message.error('请选择项')
                     return
                 }

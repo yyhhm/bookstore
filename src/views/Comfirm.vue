@@ -6,17 +6,27 @@
                 <router-link to="/address">
                     <el-button type="text">管理收货人地址</el-button>
                 </router-link>
-
             </div>
             <div class="address-manage">
-                <div class="address-item" v-show="moreAddr ? true : index < 3" :class="selectId === index ? 'border-red' : ''" @mouseenter="showEditBtn = index" @mouseleave="showEditBtn = ''"
-                    @click="selectAddress(index)" v-for="(item, index) in tableData" :key="index">
+                <div
+                    class="address-item"
+                    v-show="moreAddr ? true : index < 3"
+                    :class="selectId === index ? 'border-red' : ''"
+                    @mouseenter="showEditBtn = index"
+                    @mouseleave="showEditBtn = ''"
+                    @click="selectAddress(index)"
+                    v-for="(item, index) in tableData"
+                    :key="index"
+                >
                     <div>
                         <span>{{ item.name }}</span>
-                        <el-tag v-if="item.defaultFlag==1" size="mini">默认</el-tag>
+                        <el-tag v-if="item.defaultFlag == 1" size="mini">默认</el-tag>
                     </div>
                     <div>{{ item.phone }}</div>
-                    <div>{{ item.provinceName }} {{item.cityName}} {{item.regionName}} {{ item.detailAddress }}</div>
+                    <div>
+                        {{ item.provinceName }} {{ item.cityName }} {{ item.regionName }}
+                        {{ item.detailAddress }}
+                    </div>
                     <div class="edit-btn" v-show="showEditBtn === index">
                         <span @click.stop="handleEdit(item.addressId)">修改</span>
                         <span class="ml-10" @click.stop="handleDelete(item.addressId)">删除</span>
@@ -31,9 +41,14 @@
                     <div>添加新地址</div>
                 </div>
             </div>
-            <AddressDialog ref='addDialog' :type="type" :reload="getAddressList" />
-            <el-button type="text" class="more-addr" @click="moreAddr = !moreAddr" v-if="tableData.length > 3">
-                {{ moreAddr ? "收起地址" : "更多地址" }}
+            <AddressDialog ref="addDialog" :type="type" :reload="getAddressList" />
+            <el-button
+                type="text"
+                class="more-addr"
+                @click="moreAddr = !moreAddr"
+                v-if="tableData.length > 3"
+            >
+                {{ moreAddr ? '收起地址' : '更多地址' }}
                 <i v-show="!moreAddr" class="el-icon-caret-bottom"></i>
                 <i v-show="moreAddr" class="el-icon-caret-top"></i>
             </el-button>
@@ -44,60 +59,85 @@
                 <router-link to="/shoppingCart">
                     <el-button type="text">返回购物车</el-button>
                 </router-link>
-
             </div>
             <div class="eltable">
-                <el-table ref="multipleTable" :data="shopCart" tooltip-effect="dark" style="width: 100%" :header-cell-style="headerStyle">
-
+                <el-table
+                    ref="multipleTable"
+                    :data="shopCart"
+                    tooltip-effect="dark"
+                    style="width: 100%"
+                    :header-cell-style="headerStyle"
+                >
                     <el-table-column label="商品信息" width="150">
                         <template #default="scope">
-                            <img style="width: 100px; height: 100px;" :src="scope.row.bookCoverImg.split('#')[0]" alt="主图">
+                            <img
+                                style="width: 100px; height: 100px"
+                                :src="scope.row.bookCoverImg.split('#')[0]"
+                                alt="主图"
+                            />
                         </template>
                     </el-table-column>
-                    <el-table-column width="400" prop="bookName">
-
-                    </el-table-column>
+                    <el-table-column width="400" prop="bookName"> </el-table-column>
                     <el-table-column prop="" label="单价" width="200">
                         <template slot-scope="scope">
-                            <span style="text-decoration: line-through;display:block;color: #999999;font-size: 14px;">￥{{scope.row.originalPrice.toFixed(2)}}
+                            <span
+                                style="
+                                    text-decoration: line-through;
+                                    display: block;
+                                    color: #999999;
+                                    font-size: 14px;
+                                "
+                                >￥{{ scope.row.originalPrice.toFixed(2) }}
                             </span>
-                            <span style="color: #000000;font-size: 16px;  display:block;">￥{{scope.row.sellingPrice.toFixed(2)}}</span>
-
+                            <span style="color: #000000; font-size: 16px; display: block"
+                                >￥{{ scope.row.sellingPrice.toFixed(2) }}</span
+                            >
                         </template>
                     </el-table-column>
-                    <el-table-column label="数量" width="200" prop="bookCount">
-
-                    </el-table-column>
+                    <el-table-column label="数量" width="200" prop="bookCount"> </el-table-column>
                     <el-table-column prop="" label="金额(元)">
                         <template #default="scope">
-                            <span style="color: #ff0000;font-size: 16px;">￥{{(scope.row.sellingPrice*scope.row.bookCount).toFixed(2)}}</span>
+                            <span style="color: #ff0000; font-size: 16px"
+                                >￥{{
+                                    (scope.row.sellingPrice * scope.row.bookCount).toFixed(2)
+                                }}</span
+                            >
                         </template>
                     </el-table-column>
-
                 </el-table>
             </div>
             <div class="comfirm">
                 <ul>
-                    <li>总金额为: <span>￥{{totalPrice.toFixed(2)}}</span></li>
-                    <li>运费: <span v-if="totalPrice<88">￥5.00</span>
+                    <li>
+                        总金额为: <span>￥{{ totalPrice.toFixed(2) }}</span>
+                    </li>
+                    <li>
+                        运费: <span v-if="totalPrice < 88">￥5.00</span>
                         <span v-else>￥0.00</span>
                     </li>
-                    <li>应付金额为: <span style="color: red;font-size: 20px;">￥{{order.totalPrice.toFixed(2)}}</span></li>
                     <li>
-                        配送至: {{order.orderAddress.provinceName}} {{order.orderAddress.cityName}} {{order.orderAddress.regionName}}
-                        {{order.orderAddress.detailAddress}} &nbsp;&nbsp;收货人: {{order.orderAddress.name}}
-                        {{order.orderAddress.phone}}
+                        应付金额为:
+                        <span style="color: red; font-size: 20px"
+                            >￥{{ order.totalPrice.toFixed(2) }}</span
+                        >
                     </li>
                     <li>
-                        <el-button type="danger" style="font-size: 20px;" @click="comfirm">提交订单</el-button>
+                        配送至: {{ order.orderAddress.provinceName }}
+                        {{ order.orderAddress.cityName }} {{ order.orderAddress.regionName }}
+                        {{ order.orderAddress.detailAddress }} &nbsp;&nbsp;收货人:
+                        {{ order.orderAddress.name }}
+                        {{ order.orderAddress.phone }}
+                    </li>
+                    <li>
+                        <el-button type="danger" style="font-size: 20px" @click="comfirm"
+                            >提交订单</el-button
+                        >
                     </li>
                 </ul>
             </div>
-
         </div>
 
-        <PayDialog :orderId="orderId" ref='addPayDialog'></PayDialog>
-
+        <PayDialog :orderId="orderId" ref="addPayDialog"></PayDialog>
     </div>
 </template>
 
@@ -167,7 +207,7 @@ export default {
             this.$axios.get('/address/list').then(res => {
                 this.tableData = res.data
                 this.tableData.forEach((item, index) => {
-                    if (item.defaultFlag == 1) {
+                    if (item.defaultFlag === 1) {
                         this.selectId = index
                         this.order.orderAddress.provinceName = this.tableData[index].provinceName
                         this.order.orderAddress.cityName = this.tableData[index].cityName
@@ -230,7 +270,7 @@ export default {
         },
         comfirm() {
             this.shopCart.forEach(item => {
-                let obj = new Object()
+                const obj = {}
                 obj.bookId = item.bookId
                 obj.bookName = item.bookName
                 obj.bookCoverImg = item.bookCoverImg.split('#')[0]

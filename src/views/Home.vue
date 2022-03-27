@@ -25,7 +25,7 @@ export default {
     },
 }
 </script>
-<style >
+<style>
 .home {
     width: 100%;
 }

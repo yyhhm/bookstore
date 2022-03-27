@@ -6,16 +6,20 @@ import router from './router'
 import store from './store'
 import less from 'less'
 import axios from './until/axios.js'
-import filter from './until/filter.js'
+import filters from './until/filter.js'
 Vue.prototype.$axios = axios
 Vue.use(less)
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
+
+Object.keys(filters).forEach(key => {
+    Vue.filter(key, filters[key])
+})
 axios.get('/isLogin').then(res => {
     console.log('已验证')
-    if (res.data == '已登陆') {
+    if (res.data === '已登陆') {
         store.commit('SET_IsLogin', true)
         console.log('111')
         axios.get('/getNickName').then(res => {
@@ -33,7 +37,7 @@ axios.get('/isLogin').then(res => {
 router.beforeEach((to, from, next) => {
     if (to.matched.some(m => m.meta.auth)) {
         axios.get('/token').then(res => {
-            if (res.code == 200) {
+            if (res.code === 200) {
                 next()
             }
         })

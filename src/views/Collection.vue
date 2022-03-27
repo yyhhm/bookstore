@@ -3,11 +3,24 @@
         <div class="header">
             <h3>我的收藏</h3>
         </div>
-        <Card :wid="6" :cardData="tableData" :showDel="true" :gutter="15" :reload="getCollectList"></Card>
+        <Card
+            :wid="6"
+            :cardData="tableData"
+            :showDel="true"
+            :gutter="15"
+            :reload="getCollectList"
+        ></Card>
 
         <div class="block">
-            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[8,12,16,20]" :page-size="pageSize"
-                layout="total, sizes, prev, pager, next, jumper" :total="total">
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[8, 12, 16, 20]"
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total"
+            >
             </el-pagination>
         </div>
     </div>
@@ -23,7 +36,7 @@ export default {
     data() {
         return {
             tableData: [],
-            //查询条件
+            // 查询条件
             currentPage: 1,
             pageSize: 12,
             /* 总数据条数 */

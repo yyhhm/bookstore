@@ -1,11 +1,14 @@
 <template>
-    <el-dialog title="修改信息" :close-on-click-modal="false" :visible.sync="dialogFormVisible" width="400px" @close="handleClose">
-
+    <el-dialog
+        title="修改信息"
+        :close-on-click-modal="false"
+        :visible.sync="dialogFormVisible"
+        width="400px"
+        @close="handleClose"
+    >
         <el-form :model="ruleForm" :rules="rules" ref="formRef" label-width="60px">
-
             <el-form-item label="昵称:" prop="nickName">
-                <el-input type="text" v-model="ruleForm.nickName">
-                </el-input>
+                <el-input type="text" v-model="ruleForm.nickName"> </el-input>
             </el-form-item>
             <el-form-item label="性别:" prop="sex">
                 <el-radio-group v-model="ruleForm.sex">
@@ -88,5 +91,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

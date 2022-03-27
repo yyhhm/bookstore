@@ -1,64 +1,81 @@
 <template>
     <div class="back">
         <div class="register">
-            <div style="line-height: 50px;text-align: center;">
-                <span style="color: #007AFF;">用户登录</span>
+            <div style="line-height: 50px; text-align: center">
+                <span style="color: #007aff">用户登录</span>
                 <router-link to="/">
-                    <span style="float: right;" class="ziti">首页</span>
+                    <span style="float: right" class="ziti">首页</span>
                 </router-link>
             </div>
             <el-form :rules="rules" :model="ruleForm" ref="registerForm">
                 <el-form-item prop="username">
-                    <el-input type="text" v-model.trim="ruleForm.username" 
-                    autocomplete="off" placeholder="请输入手机号码">
+                    <el-input
+                        type="text"
+                        v-model.trim="ruleForm.username"
+                        autocomplete="off"
+                        placeholder="请输入手机号码"
+                    >
                         <template slot="prepend"><i class="el-icon-s-custom"></i></template>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-
-                    <el-input :type="pwdType" v-model.trim="ruleForm.password" autocomplete="off" placeholder="请输入密码">
+                    <el-input
+                        :type="pwdType"
+                        v-model.trim="ruleForm.password"
+                        autocomplete="off"
+                        placeholder="请输入密码"
+                    >
                         <i slot="prepend" class="el-icon-unlock"></i>
                         <i slot="suffix" class="el-input__icon el-icon-view" @click="showPwd"></i>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="checkPass">
-                    <el-input :type="pwdType1" v-model="ruleForm.checkPass" autocomplete="off" placeholder="请输入确认密码">
+                    <el-input
+                        :type="pwdType1"
+                        v-model="ruleForm.checkPass"
+                        autocomplete="off"
+                        placeholder="请输入确认密码"
+                    >
                         <i slot="prepend" class="el-icon-unlock"></i>
 
                         <i slot="suffix" class="el-input__icon el-icon-view" @click="showPwd1"></i>
                     </el-input>
-
                 </el-form-item>
                 <el-form-item prop="code">
                     <el-row>
                         <el-col :span="14">
-                            <el-input v-model="ruleForm.code" auto-complete="off" label="验证码:" placeholder="请输入验证码"></el-input>
+                            <el-input
+                                v-model="ruleForm.code"
+                                auto-complete="off"
+                                label="验证码:"
+                                placeholder="请输入验证码"
+                            ></el-input>
                         </el-col>
                         <el-col :span="10">
-
                             <!--验证码组件-->
-                            <s-identify :identifyCode="identifyCode" @click.native="refreshCode"></s-identify>
-
+                            <s-identify
+                                :identifyCode="identifyCode"
+                                @click.native="refreshCode"
+                            ></s-identify>
                         </el-col>
                     </el-row>
                 </el-form-item>
                 <el-form-item prop="condition">
-                    <el-checkbox v-model="ruleForm.condition" label="">注册表示您已同意<a>《注册协议》</a></el-checkbox>
-
+                    <el-checkbox v-model="ruleForm.condition" label=""
+                        >注册表示您已同意<a>《注册协议》</a></el-checkbox
+                    >
                 </el-form-item>
 
                 <el-form-item>
-
-                    <el-button style="width: 100%" type="primary" @click="submitForm">立即注册</el-button>
+                    <el-button style="width: 100%" type="primary" @click="submitForm"
+                        >立即注册</el-button
+                    >
                 </el-form-item>
-
             </el-form>
-            <router-link to='/login'>
-                <el-button style="width: 100%;margin: 0;" type="text">已有账户，去登陆</el-button>
+            <router-link to="/login">
+                <el-button style="width: 100%; margin: 0" type="text">已有账户，去登陆</el-button>
             </router-link>
-
         </div>
-
     </div>
 </template>
 
@@ -94,7 +111,7 @@ export default {
                     console.log('dddd2')
                     this.$refs.registerForm.validateField('checkPass')
                 }
-                let passwordreg = /(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,16}/
+                const passwordreg = /(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,16}/
                 if (!passwordreg.test(value)) {
                     console.log('dddd3')
                     callback(new Error('密码必须由数字、字母、特殊字符组合,请输入6-16位'))
@@ -198,7 +215,7 @@ export default {
                             password: this.ruleForm.password,
                         })
                         .then(res => {
-                            if (res.code == 200) {
+                            if (res.code === 200) {
                                 this.$message.success('注册成功')
                                 this.$router.push({
                                     path: '/login',
@@ -222,18 +239,23 @@ export default {
         },
         makeCode(o, l) {
             for (let i = 0; i < l; i++) {
-                this.identifyCode += this.identifyCodes[this.randomNum(0, this.identifyCodes.length)]
+                this.identifyCode +=
+                    this.identifyCodes[this.randomNum(0, this.identifyCodes.length)]
             }
         },
         showPwd() {
             this.pwdType === 'password' ? (this.pwdType = '') : (this.pwdType = 'password')
-            let e = document.getElementsByClassName('el-icon-view')[0]
-            this.pwdType == '' ? e.setAttribute('style', 'color: #409EFF') : e.setAttribute('style', 'color: #c0c4cc')
+            const e = document.getElementsByClassName('el-icon-view')[0]
+            this.pwdType === ''
+                ? e.setAttribute('style', 'color: #409EFF')
+                : e.setAttribute('style', 'color: #c0c4cc')
         },
         showPwd1() {
             this.pwdType1 === 'password' ? (this.pwdType1 = '') : (this.pwdType1 = 'password')
-            let e = document.getElementsByClassName('el-icon-view')[1]
-            this.pwdType1 == '' ? e.setAttribute('style', 'color: #409EFF') : e.setAttribute('style', 'color: #c0c4cc')
+            const e = document.getElementsByClassName('el-icon-view')[1]
+            this.pwdType1 === ''
+                ? e.setAttribute('style', 'color: #409EFF')
+                : e.setAttribute('style', 'color: #c0c4cc')
         },
     },
 

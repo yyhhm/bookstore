@@ -1,24 +1,41 @@
 <template>
-    <el-dialog title="提交评价" :close-on-click-modal="false" :visible.sync="dialogFormVisible" width="500px" @close="handleClose" class="body">
-        <div class="toubu" v-if="goods!=null">
+    <el-dialog
+        title="提交评价"
+        :close-on-click-modal="false"
+        :visible.sync="dialogFormVisible"
+        width="500px"
+        @close="handleClose"
+        class="body"
+    >
+        <div class="toubu" v-if="goods != null">
             <div>
-                <img :src="goods.bookCoverImg" alt="" @click="onChange(goods.bookId)" style="width: 150px;" />
+                <img
+                    :src="goods.bookCoverImg"
+                    alt=""
+                    @click="onChange(goods.bookId)"
+                    style="width: 150px"
+                />
             </div>
             <div>{{ goods.bookName }}</div>
             <div>
-                <span style="text-decoration: line-through;display:block;color: #999999;font-size: 14px;">￥{{goods.originalPrice | rounding}}
+                <span
+                    style="
+                        text-decoration: line-through;
+                        display: block;
+                        color: #999999;
+                        font-size: 14px;
+                    "
+                    >￥{{ goods.originalPrice | rounding }}
                 </span>
-                <span style="color: #000000;font-size: 16px;  display:block;">￥{{goods.sellingPrice | rounding}}
+                <span style="color: #000000; font-size: 16px; display: block"
+                    >￥{{ goods.sellingPrice | rounding }}
                 </span>
             </div>
-            <div>
-                x{{goods.bookCount}}
-            </div>
+            <div>x{{ goods.bookCount }}</div>
         </div>
         <el-form :model="form" ref="formRef" :rules="rules" label-width="80px">
             <el-form-item label="评分:" prop="grade">
-                <el-rate v-model="form.grade" show-text style="margin: 10px 0;">
-                </el-rate>
+                <el-rate v-model="form.grade" show-text style="margin: 10px 0"> </el-rate>
             </el-form-item>
             <el-form-item label="评价:" prop="contact">
                 <el-input type="textarea" v-model="form.contact"></el-input>
@@ -28,7 +45,6 @@
             <el-button @click="dialogFormVisible = false">取 消</el-button>
             <el-button type="primary" @click="submitForm">确 定</el-button>
         </div>
-
     </el-dialog>
 </template>
 
@@ -40,7 +56,7 @@ export default {
     },
     data() {
         const validategrade = (rule, value, callback) => {
-            if (value == 0) {
+            if (value === 0) {
                 callback(new Error('评分不能为空'))
             }
             if (value > 0) {

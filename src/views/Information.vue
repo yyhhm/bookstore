@@ -8,26 +8,25 @@
             <table>
                 <tr>
                     <td>手机号</td>
-                    <td>{{userData.loginName}}</td>
+                    <td>{{ userData.loginName }}</td>
                 </tr>
                 <tr>
                     <td>昵称</td>
-                    <td>{{userData.nickName}}</td>
+                    <td>{{ userData.nickName }}</td>
                 </tr>
                 <tr>
                     <td>性别</td>
-                    <td v-if="userData.sex==0">男</td>
+                    <td v-if="userData.sex == 0">男</td>
                     <td v-else>女</td>
                 </tr>
                 <tr>
                     <td>签名</td>
-                    <td>{{userData.introduceSign}}</td>
+                    <td>{{ userData.introduceSign }}</td>
                 </tr>
             </table>
         </div>
-        <div>
-        </div>
-        <UserInfoDialog ref='addDialog' :reload="getUser" />
+        <div></div>
+        <UserInfoDialog ref="addDialog" :reload="getUser" />
     </div>
 </template>
 

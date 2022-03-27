@@ -1,14 +1,20 @@
 <template>
-    <el-dialog title="选择支付方式" :visible.sync="dialogVisible" width="30%" :close-on-click-modal="false" @close="handleClose">
+    <el-dialog
+        title="选择支付方式"
+        :visible.sync="dialogVisible"
+        width="30%"
+        :close-on-click-modal="false"
+        @close="handleClose"
+    >
         <el-tabs v-model="activeName" type="border-card" width="100%" stretch>
             <el-tab-pane label="支付宝支付" name="1">
                 <div class="imgDiv">
-                    <img src="../assets/支付宝支付.jpg" alt="" class="img">
+                    <img src="../assets/支付宝支付.jpg" alt="" class="img" />
                 </div>
             </el-tab-pane>
             <el-tab-pane label="微信支付" name="2">
                 <div class="imgDiv">
-                    <img src="../assets/微信支付.jpg" alt="" class="img">
+                    <img src="../assets/微信支付.jpg" alt="" class="img" />
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -43,7 +49,7 @@ export default {
             this.dialogVisible = true
         },
         handleClose() {
-            //this.dialogVisible = false
+            // this.dialogVisible = false
             if (!this.isOrder) {
                 this.$router.push({
                     path: '/order',

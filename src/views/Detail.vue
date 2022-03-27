@@ -1,64 +1,93 @@
 <template>
     <div class="detail">
-
         <el-row>
             <el-col :span="12">
-
                 <div class="actor">
-                    <img :src="actorC" style="width: 400px;height: 400px; margin: auto;">
+                    <img :src="actorC" style="width: 400px; height: 400px; margin: auto" />
                 </div>
                 <ul class="thumbnail-list">
-                    <li class="thumbnail-item" v-for="(thumbnail, index) in imgData" :key="index" @mouseover="toggleActor(index)">
-                        <img class="thumbnail" :src="thumbnail" style="width: 86px;height: 86px;">
+                    <li
+                        class="thumbnail-item"
+                        v-for="(thumbnail, index) in imgData"
+                        :key="index"
+                        @mouseover="toggleActor(index)"
+                    >
+                        <img class="thumbnail" :src="thumbnail" style="width: 86px; height: 86px" />
                     </li>
                 </ul>
-
             </el-col>
             <el-col :span="12">
-
-                <p class="title base3">{{bookData.bookName}}</p>
-                <p class="intro base3">{{bookData.bookIntro}}</p>
+                <p class="title base3">{{ bookData.bookName }}</p>
+                <p class="intro base3">{{ bookData.bookIntro }}</p>
                 <div class="base base1 base3">
                     <div>
-                        作者:<span style="color: #55aaff;">{{bookData.bookAuthor}}</span>
+                        作者:<span style="color: #55aaff">{{ bookData.bookAuthor }}</span>
                     </div>
                     <div>
-                        出版社:<span style="color: #55aaff;">{{bookData.bookPublish}}</span>
+                        出版社:<span style="color: #55aaff">{{ bookData.bookPublish }}</span>
                     </div>
                 </div>
                 <div class="base price base2">
-                    <p>定 价:<span class="original-price ml">￥{{bookData.originalPrice}}</span></p>
-                    <p style="margin-top: 25px;">售 价:<span class="sell-price ml">￥{{bookData.sellingPrice}}</span></p>
+                    <p>
+                        定 价:<span class="original-price ml">￥{{ bookData.originalPrice }}</span>
+                    </p>
+                    <p style="margin-top: 25px">
+                        售 价:<span class="sell-price ml">￥{{ bookData.sellingPrice }}</span>
+                    </p>
                 </div>
 
-                <div class="base base2">销量<span style="color: #000000;" class="ml">{{bookData.saleNum}}件</span></div>
-                <div class="base base2">数量<el-input-number size="mini" class="ml mr" v-model="num" :min="1"></el-input-number>
-                    <span>库存:{{bookData.stockNum}}</span>
+                <div class="base base2">
+                    销量<span style="color: #000000" class="ml">{{ bookData.saleNum }}件</span>
+                </div>
+                <div class="base base2">
+                    数量<el-input-number
+                        size="mini"
+                        class="ml mr"
+                        v-model="num"
+                        :min="1"
+                    ></el-input-number>
+                    <span>库存:{{ bookData.stockNum }}</span>
                 </div>
 
                 <div class="base3">
-                    <el-button type="info" plain disabled v-if="bookData.bookSellStatus == 1">该书已下架</el-button>
+                    <el-button type="info" plain disabled v-if="bookData.bookSellStatus == 1"
+                        >该书已下架</el-button
+                    >
                     <template v-else>
-                        <el-button type="info" plain disabled v-if="bookData.stockNum< num">库存不足</el-button>
+                        <el-button type="info" plain disabled v-if="bookData.stockNum < num"
+                            >库存不足</el-button
+                        >
                         <template v-else>
-                            <el-button icon="el-icon-shopping-cart-2" @click="addCart">加入购物车</el-button>
+                            <el-button icon="el-icon-shopping-cart-2" @click="addCart"
+                                >加入购物车</el-button
+                            >
                             <el-button type="primary" @click="goComfirm">立即购买</el-button>
                         </template>
                     </template>
-                    <el-button plain icon="el-icon-star-off" v-if="collectId==0" @click="addCollect">收藏</el-button>
-                    <el-button plain icon="el-icon-star-on" style="color: #007AFF;" v-else @click="delCollect">取消收藏</el-button>
-
+                    <el-button
+                        plain
+                        icon="el-icon-star-off"
+                        v-if="collectId == 0"
+                        @click="addCollect"
+                        >收藏</el-button
+                    >
+                    <el-button
+                        plain
+                        icon="el-icon-star-on"
+                        style="color: #007aff"
+                        v-else
+                        @click="delCollect"
+                        >取消收藏</el-button
+                    >
                 </div>
                 <div class="base3">
-                    <div class="base" style="float: left;">服务</div>
+                    <div class="base" style="float: left">服务</div>
                     <ul class="service">
                         <li><i class="el-icon-success" style="color: red"></i>正品保证</li>
                         <li><i class="el-icon-success" style="color: red"></i>满88包邮</li>
                         <li><i class="el-icon-success" style="color: red"></i>七天无理由退换</li>
                     </ul>
-
                 </div>
-
             </el-col>
         </el-row>
 
@@ -74,44 +103,52 @@
                             <el-button type="text">评论</el-button>
                         </el-badge>
                     </div>
-                    <div v-for="(item,index) in appraiseList" :key="index">
-                        <el-row style="margin-bottom: 15px;">
+                    <div v-for="(item, index) in appraiseList" :key="index">
+                        <el-row style="margin-bottom: 15px">
                             <el-col :span="3">
-                                <el-avatar shape="square" :size="50" icon="el-icon-user-solid"></el-avatar>
-                                <p style="font-size: 12px;">{{item.users.loginName | phone}}</p>
-                                <div>
-                                </div>
+                                <el-avatar
+                                    shape="square"
+                                    :size="50"
+                                    icon="el-icon-user-solid"
+                                ></el-avatar>
+                                <p style="font-size: 12px">{{ item.users.loginName | phone }}</p>
+                                <div></div>
                             </el-col>
                             <el-col :span="17">
                                 <div>
-                                    <el-rate v-model="item.grade" disabled>
-                                    </el-rate>
+                                    <el-rate v-model="item.grade" disabled> </el-rate>
                                 </div>
-                                <div style="margin-top: 10px; font-size: 14px;">
-
-                                    <p v-if="item.appraiseContact!= ''">{{item.appraiseContact}}</p>
-                                    <p v-else> 此用户没有填写评价</p>
+                                <div style="margin-top: 10px; font-size: 14px">
+                                    <p v-if="item.appraiseContact != ''">
+                                        {{ item.appraiseContact }}
+                                    </p>
+                                    <p v-else>此用户没有填写评价</p>
                                 </div>
                             </el-col>
                             <el-col :span="4">
                                 <div>
-                                    {{item.createTime | time}}
+                                    {{ item.createTime | time }}
                                 </div>
                             </el-col>
                         </el-row>
                     </div>
 
-                    <div class="block" v-if="total>0">
-                        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10,20,30]" :page-size="pageSize"
-                            layout="total, sizes, prev, pager, next, jumper" :total="total">
+                    <div class="block" v-if="total > 0">
+                        <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-sizes="[10, 20, 30]"
+                            :page-size="pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="total"
+                        >
                         </el-pagination>
                     </div>
                     <div v-else>
                         <h4>暂无评论</h4>
                     </div>
-
                 </el-tab-pane>
-
             </el-tabs>
         </div>
     </div>
@@ -131,7 +168,7 @@ export default {
             actorIndex: 0,
             collectId: 0,
             appraiseList: [],
-            //查询条件
+            // 查询条件
             currentPage: 1,
             pageSize: 10,
             /* 总数据条数 */
@@ -141,7 +178,7 @@ export default {
     methods: {
         handleClick(tab, event) {
             console.log('sssssss' + tab.name)
-            if (tab.name == 2) {
+            if (tab.name === 2) {
                 this.getAppraise()
             }
         },
@@ -202,7 +239,7 @@ export default {
             })
         },
         getCollect() {
-            let login = this.$store.state.login
+            const login = this.$store.state.login
             if (login) {
                 this.$axios.get(`/isCollect/${this.id}`).then(res => {
                     this.collectId = res.data
@@ -222,7 +259,7 @@ export default {
                     stockNum: this.bookData.stockNum,
                 })
                 .then(res => {
-                    if (res.code == 200) {
+                    if (res.code === 200) {
                         this.$message.success('已加入购物车')
                         this.$axios.get('/shopCart/items').then(res => {
                             this.$store.commit('setShopCartNum', res.data)

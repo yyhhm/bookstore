@@ -1,18 +1,27 @@
 <template>
     <div class="body">
-        <div style="width: 100%; line-height: 50px;" v-if="catName.length>0">
-            <el-breadcrumb separator-class="el-icon-arrow-right" style="width: 100%; line-height: 50px;">
+        <div style="width: 100%; line-height: 50px" v-if="catName.length > 0">
+            <el-breadcrumb
+                separator-class="el-icon-arrow-right"
+                style="width: 100%; line-height: 50px"
+            >
                 <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{path:'/search',query:{sid:catName[0].categoryId}}">{{catName[0].categoryName}}
+                <el-breadcrumb-item :to="{ path: '/search', query: { sid: catName[0].categoryId } }"
+                    >{{ catName[0].categoryName }}
                 </el-breadcrumb-item>
-                <el-breadcrumb-item v-if="catName[1]">{{catName[1].categoryName}}
+                <el-breadcrumb-item v-if="catName[1]"
+                    >{{ catName[1].categoryName }}
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="sort">
-
             <div>
-                <el-radio-group v-model="submitData.type" size="small" @change="getBookList" style="margin-right: 15px;">
+                <el-radio-group
+                    v-model="submitData.type"
+                    size="small"
+                    @change="getBookList"
+                    style="margin-right: 15px"
+                >
                     <el-radio-button label="2">价格</el-radio-button>
                     <el-radio-button label="1">销量</el-radio-button>
                     <el-radio-button label="3">新品</el-radio-button>
@@ -37,56 +46,82 @@
                 </svg>
             </div>
         </div>
-        <div class=" books">
-            <div v-for="(item,index) in booksData" :key="index" v-show="show">
+        <div class="books">
+            <div v-for="(item, index) in booksData" :key="index" v-show="show">
                 <div @mouseenter="hoverIndex = index" @mouseleave="hoverIndex = -1" class="info">
                     <el-row>
                         <el-col :span="4">
                             <div class="imgDiv">
-                                <img :src="item.bookCoverImg.split('#')[0]" class="image" @click="onChange(item.bookId)" :class="{big:index==hoverIndex}">
+                                <img
+                                    :src="item.bookCoverImg.split('#')[0]"
+                                    class="image"
+                                    @click="onChange(item.bookId)"
+                                    :class="{ big: index == hoverIndex }"
+                                />
                             </div>
                         </el-col>
                         <el-col :span="18">
                             <div class="contact">
                                 <div>
-                                    <h4>{{item.bookName}}</h4>
+                                    <h4>{{ item.bookName }}</h4>
                                 </div>
                                 <div>
-                                    <span style="color: #e4393c;font-size: 20px;margin-right: 15px;">￥{{item.sellingPrice}}</span>
-                                    <span style="text-decoration: line-through;color: #999999;font-size: 14px;">￥{{item.originalPrice}}
+                                    <span
+                                        style="color: #e4393c; font-size: 20px; margin-right: 15px"
+                                        >￥{{ item.sellingPrice }}</span
+                                    >
+                                    <span
+                                        style="
+                                            text-decoration: line-through;
+                                            color: #999999;
+                                            font-size: 14px;
+                                        "
+                                        >￥{{ item.originalPrice }}
                                     </span>
                                 </div>
                                 <div>
                                     <div>
-                                        <span>作者：</span><span>{{item.bookAuthor}}</span>
+                                        <span>作者：</span><span>{{ item.bookAuthor }}</span>
                                     </div>
                                     <div>
-                                        <span>出版社：</span><span>{{item.bookPublish}}</span>
+                                        <span>出版社：</span><span>{{ item.bookPublish }}</span>
                                     </div>
                                     <div>
-                                        <span>上架时间：</span><span>{{item.createTime | time}}</span>
+                                        <span>上架时间：</span
+                                        ><span>{{ item.createTime | time }}</span>
                                     </div>
                                 </div>
                                 <div>
-                                    {{item.bookIntro}}
+                                    {{ item.bookIntro }}
                                 </div>
                                 <div>
-                                    <el-button icon="el-icon-shopping-cart-2" type="primary" @click="addCart(item.bookId,item.stockNum)">
-                                        加入购物车</el-button>
+                                    <el-button
+                                        icon="el-icon-shopping-cart-2"
+                                        type="primary"
+                                        @click="addCart(item.bookId, item.stockNum)"
+                                    >
+                                        加入购物车</el-button
+                                    >
                                 </div>
                             </div>
                         </el-col>
                     </el-row>
                 </div>
-
             </div>
 
             <div v-show="!show">
                 <Card :wid="4" :gutter="10" :cardData="booksData"></Card>
             </div>
             <div class="block" v-if="booksData">
-                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="submitData.currentPage" :page-sizes="[8,12,16,20]" :page-size="submitData.pageSize"
-                    layout="total, sizes, prev, pager, next, jumper" :total="total">
+                <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="submitData.currentPage"
+                    :page-sizes="[8, 12, 16, 20]"
+                    :page-size="submitData.pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="total"
+                >
                 </el-pagination>
             </div>
         </div>
@@ -154,7 +189,7 @@ export default {
                     stockNum: stockNum,
                 })
                 .then(res => {
-                    if (res.code == 200) {
+                    if (res.code === 200) {
                         this.$message.success('已加入购物车')
                         this.$axios.get('/shopCart/items').then(res => {
                             this.$store.commit('setShopCartNum', res.data)
@@ -181,7 +216,7 @@ export default {
             })
         },
         getBookList() {
-            let params = new Object()
+            const params = {}
             Object.assign(params, this.submitData, this.$route.query)
             this.$axios
                 .get('/books/search', {
