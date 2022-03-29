@@ -1,10 +1,11 @@
 <template>
     <div class="home">
         <Nav></Nav>
-        <SearchBox></SearchBox>
-        <Header></Header>
-
-        <router-view></router-view>
+        <div>
+            <SearchBox></SearchBox>
+            <Header></Header>
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
@@ -25,8 +26,13 @@ export default {
     },
 }
 </script>
-<style>
+<style scoped lang="less">
 .home {
     width: 100%;
+    margin-bottom: 30px;
+    > div {
+        margin: 0 60px;
+        background-color: white;
+    }
 }
 </style>

@@ -62,7 +62,6 @@ export default {
 
 <style scoped lang="less">
 .body {
-    width: 100%;
     padding: 20px;
 
     .header {
@@ -73,7 +72,6 @@ export default {
     }
 
     .info {
-        width: 100%;
         padding: 10px 30px;
         height: 140px;
         background-color: #e6e6e6;

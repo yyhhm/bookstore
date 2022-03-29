@@ -37,10 +37,10 @@
                             color: #999999;
                             font-size: 14px;
                         "
-                        >￥{{ scope.row.originalPrice }}
+                        >￥{{ scope.row.originalPrice | price }}
                     </span>
                     <span style="color: #000000; font-size: 16px; display: block"
-                        >￥{{ scope.row.sellingPrice }}</span
+                        >￥{{ scope.row.sellingPrice | price }}</span
                     >
                 </template>
             </el-table-column>
@@ -61,7 +61,7 @@
             <el-table-column prop="" label="金额(元)" width="120">
                 <template #default="scope">
                     <span style="color: #ff0000; font-size: 16px"
-                        >￥{{ (scope.row.sellingPrice * scope.row.bookCount).toFixed(2) }}</span
+                        >￥{{ (scope.row.sellingPrice * scope.row.bookCount) | price }}</span
                     >
                 </template>
             </el-table-column>
@@ -98,7 +98,7 @@
                 <span
                     >应付金额
                     <span style="color: #ff0000; font-size: 20px">
-                        ￥{{ totalPrice.toFixed(2) }}</span
+                        ￥{{ totalPrice | price }}</span
                     ></span
                 >
             </li>
@@ -297,11 +297,6 @@ export default {
 }
 </style>
 <style scoped lang="less">
-.cart {
-    width: 100%;
-    padding: 0px 60px;
-}
-
 .cart-product-info {
     height: 60px;
     line-height: 60px;

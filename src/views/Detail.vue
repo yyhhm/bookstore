@@ -12,7 +12,7 @@
                         :key="index"
                         @mouseover="toggleActor(index)"
                     >
-                        <img class="thumbnail" :src="thumbnail" style="width: 86px; height: 86px" />
+                        <img class="thumbnail" :src="thumbnail" />
                     </li>
                 </ul>
             </el-col>
@@ -29,10 +29,14 @@
                 </div>
                 <div class="base price base2">
                     <p>
-                        定 价:<span class="original-price ml">￥{{ bookData.originalPrice }}</span>
+                        定 价:<span class="original-price ml">
+                            ￥{{ bookData.originalPrice | price }}
+                        </span>
                     </p>
                     <p style="margin-top: 25px">
-                        售 价:<span class="sell-price ml">￥{{ bookData.sellingPrice }}</span>
+                        售 价:<span class="sell-price ml">
+                            ￥{{ bookData.sellingPrice | price }}
+                        </span>
                     </p>
                 </div>
 
@@ -40,27 +44,25 @@
                     销量<span style="color: #000000" class="ml">{{ bookData.saleNum }}件</span>
                 </div>
                 <div class="base base2">
-                    数量<el-input-number
-                        size="mini"
-                        class="ml mr"
-                        v-model="num"
-                        :min="1"
-                    ></el-input-number>
+                    数量
+                    <el-input-number size="mini" class="ml mr" v-model="num" :min="1">
+                    </el-input-number>
                     <span>库存:{{ bookData.stockNum }}</span>
                 </div>
 
                 <div class="base3">
-                    <el-button type="info" plain disabled v-if="bookData.bookSellStatus == 1"
-                        >该书已下架</el-button
-                    >
+                    <el-button type="info" plain disabled v-if="bookData.bookSellStatus == 1">
+                        该书已下架
+                    </el-button>
                     <template v-else>
-                        <el-button type="info" plain disabled v-if="bookData.stockNum < num"
-                            >库存不足</el-button
-                        >
+                        <el-button type="info" plain disabled v-if="bookData.stockNum < num">
+                            库存不足
+                        </el-button>
                         <template v-else>
-                            <el-button icon="el-icon-shopping-cart-2" @click="addCart"
-                                >加入购物车</el-button
-                            >
+                            <el-button icon="el-icon-shopping-cart-2" @click="addCart">
+                                加入购物车
+                            </el-button>
+
                             <el-button type="primary" @click="goComfirm">立即购买</el-button>
                         </template>
                     </template>
@@ -69,16 +71,18 @@
                         icon="el-icon-star-off"
                         v-if="collectId == 0"
                         @click="addCollect"
-                        >收藏</el-button
                     >
+                        收藏
+                    </el-button>
                     <el-button
                         plain
                         icon="el-icon-star-on"
                         style="color: #007aff"
                         v-else
                         @click="delCollect"
-                        >取消收藏</el-button
                     >
+                        取消收藏
+                    </el-button>
                 </div>
                 <div class="base3">
                     <div class="base" style="float: left">服务</div>
@@ -106,11 +110,8 @@
                     <div v-for="(item, index) in appraiseList" :key="index">
                         <el-row style="margin-bottom: 15px">
                             <el-col :span="3">
-                                <el-avatar
-                                    shape="square"
-                                    :size="50"
-                                    icon="el-icon-user-solid"
-                                ></el-avatar>
+                                <el-avatar shape="square" :size="50" icon="el-icon-user-solid">
+                                </el-avatar>
                                 <p style="font-size: 12px">{{ item.users.loginName | phone }}</p>
                                 <div></div>
                             </el-col>
@@ -165,6 +166,7 @@ export default {
             id: '',
             imgData: [],
             bookData: {},
+            // 图片index
             actorIndex: 0,
             collectId: 0,
             appraiseList: [],
@@ -294,8 +296,7 @@ export default {
 
 <style scoped lang="less">
 .detail {
-    width: 100%;
-    padding: 20px 60px;
+    padding: 20px 0;
 }
 
 .card {
@@ -326,19 +327,20 @@ export default {
 
 .thumbnail-list {
     margin-top: 15px;
-    border: 1px #cccccc solid;
+    padding: 1px 0;
+    border: 1px #ada2a2 solid;
     width: 430px;
     list-style: none;
 }
 
 .thumbnail-item {
     display: inline-block;
-    width: 86px;
+
     cursor: pointer;
 }
 
 .thumbnail {
-    border: 1px solid transparent;
+    width: 86px;
     box-sizing: border-box;
 }
 
@@ -360,7 +362,7 @@ export default {
     font-size: 18px;
     color: #b2b2b2;
 }
-
+//字体
 .base {
     font-size: 14px;
     color: #999999;
@@ -377,7 +379,6 @@ export default {
 
 .price {
     background-color: #e5e5e5;
-
     .original-price {
         color: black;
         text-decoration: line-through;
@@ -398,7 +399,7 @@ export default {
 }
 
 .base2 {
-    width: 100%;
+    width: 80%;
     padding: 10px 15px;
 }
 

@@ -20,11 +20,11 @@
                     <div style="padding: 5px; text-align: center">
                         <p style="height: 3em">{{ item.bookName }}</p>
                         <span style="color: #e4393c; font-size: 16px"
-                            >￥{{ item.sellingPrice }}</span
+                            >￥{{ item.sellingPrice | price }}</span
                         >
                         <span style="color: #999999">|</span>
                         <span style="text-decoration: line-through; color: #999999; font-size: 12px"
-                            >￥{{ item.originalPrice }}</span
+                            >￥{{ item.originalPrice | price }}</span
                         >
                     </div>
                     <div class="del-but" v-show="index == hoverIndex" v-if="showDel">

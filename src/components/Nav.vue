@@ -63,9 +63,8 @@ export default {
 
 <style lang="less" scoped>
 .nav {
-    width: 100%;
     height: 50px;
-    background: #f3f3f3;
+    background-color: whitesmoke;
     padding: 0 60px;
     line-height: 50px;
 

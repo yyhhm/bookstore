@@ -150,10 +150,8 @@ export default {
 
 <style lang="less" scoped>
 .address {
-    width: 100%;
     height: auto;
     padding: 30px;
-
     .header {
         display: flex;
         justify-content: space-between;

@@ -41,11 +41,11 @@
                                                 color: #999999;
                                                 font-size: 14px;
                                             "
-                                            >￥{{ goods.originalPrice.toFixed(2) }}
+                                            >￥{{ goods.originalPrice | price }}
                                         </span>
                                         <span
                                             style="color: #000000; font-size: 16px; display: block"
-                                            >￥{{ goods.sellingPrice.toFixed(2) }}</span
+                                            >￥{{ goods.sellingPrice | price }}</span
                                         >
                                     </div>
                                     <div>x{{ goods.bookCount }}</div>
@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="order-totalPrice">￥{{ order.totalPrice }}</div>
+                            <div class="order-totalPrice">￥{{ order.totalPrice | price }}</div>
                             <div class="order-status">
                                 <div>
                                     {{ order.orderStatus | orderMap }}
@@ -295,7 +295,6 @@ export default {
             }
 
             .order-header {
-                width: 100%;
                 display: flex;
                 align-items: center;
                 padding: 10px;

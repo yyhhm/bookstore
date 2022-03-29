@@ -22,8 +22,8 @@
                     @change="getBookList"
                     style="margin-right: 15px"
                 >
-                    <el-radio-button label="2">价格</el-radio-button>
-                    <el-radio-button label="1">销量</el-radio-button>
+                    <el-radio-button label="1">价格</el-radio-button>
+                    <el-radio-button label="2">销量</el-radio-button>
                     <el-radio-button label="3">新品</el-radio-button>
                 </el-radio-group>
                 <el-radio-group v-model="submitData.sort" @change="getBookList">
@@ -68,7 +68,7 @@
                                 <div>
                                     <span
                                         style="color: #e4393c; font-size: 20px; margin-right: 15px"
-                                        >￥{{ item.sellingPrice }}</span
+                                        >￥{{ item.sellingPrice | price }}</span
                                     >
                                     <span
                                         style="
@@ -76,7 +76,7 @@
                                             color: #999999;
                                             font-size: 14px;
                                         "
-                                        >￥{{ item.originalPrice }}
+                                        >￥{{ item.originalPrice | price }}
                                     </span>
                                 </div>
                                 <div>
@@ -270,8 +270,6 @@ export default {
 }
 
 .body {
-    padding: 0 60px;
-
     .sort {
         margin: 20px 0;
         width: 100%;

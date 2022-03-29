@@ -42,7 +42,7 @@ export default {
 
 <style lang="less" scoped>
 .userinfo {
-    padding: 60px 60px;
+    margin-top: 20px;
 }
 
 .el-menu {

@@ -87,21 +87,20 @@
                                     color: #999999;
                                     font-size: 14px;
                                 "
-                                >￥{{ scope.row.originalPrice.toFixed(2) }}
-                            </span>
-                            <span style="color: #000000; font-size: 16px; display: block"
-                                >￥{{ scope.row.sellingPrice.toFixed(2) }}</span
                             >
+                                ￥{{ scope.row.originalPrice | price }}
+                            </span>
+                            <span style="color: #000000; font-size: 16px; display: block">
+                                ￥{{ scope.row.sellingPrice | price }}
+                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column label="数量" width="200" prop="bookCount"> </el-table-column>
                     <el-table-column prop="" label="金额(元)">
                         <template #default="scope">
-                            <span style="color: #ff0000; font-size: 16px"
-                                >￥{{
-                                    (scope.row.sellingPrice * scope.row.bookCount).toFixed(2)
-                                }}</span
-                            >
+                            <span style="color: #ff0000; font-size: 16px">
+                                ￥ {{ (scope.row.sellingPrice * scope.row.bookCount) | price }}
+                            </span>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -109,7 +108,7 @@
             <div class="comfirm">
                 <ul>
                     <li>
-                        总金额为: <span>￥{{ totalPrice.toFixed(2) }}</span>
+                        总金额为: <span>￥{{ totalPrice | price }}</span>
                     </li>
                     <li>
                         运费: <span v-if="totalPrice < 88">￥5.00</span>
@@ -117,9 +116,9 @@
                     </li>
                     <li>
                         应付金额为:
-                        <span style="color: red; font-size: 20px"
-                            >￥{{ order.totalPrice.toFixed(2) }}</span
-                        >
+                        <span style="color: red; font-size: 20px">
+                            ￥{{ order.totalPrice | price }}
+                        </span>
                     </li>
                     <li>
                         配送至: {{ order.orderAddress.provinceName }}
@@ -363,10 +362,7 @@ export default {
 }
 
 .comfim-body {
-    width: 100%;
     height: auto;
-    padding: 60px;
-
     .address {
         width: 100%;
         height: auto;
@@ -377,7 +373,7 @@ export default {
 
             > div {
                 border: 1px dotted #949494;
-                width: 265px;
+                width: 230px;
                 height: 120px;
                 margin: 20px 20px 0 0;
                 padding: 10px;

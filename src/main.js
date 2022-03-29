@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import less from 'less'
 import axios from './until/axios.js'
-import filters from './until/filter.js'
+import * as filters from './until/filter.js'
 Vue.prototype.$axios = axios
 Vue.use(less)
 

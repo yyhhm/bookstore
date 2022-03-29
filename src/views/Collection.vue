@@ -74,7 +74,6 @@ export default {
 
 <style scoped lang="less">
 .body {
-    width: 100%;
     padding: 20px;
     .header {
         border-bottom: 1px #e4e4e4 solid;

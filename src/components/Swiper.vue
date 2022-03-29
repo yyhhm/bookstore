@@ -33,7 +33,8 @@ export default {
 <style scoped>
 .recommendPage {
     position: relative;
-    width: 100%;
+
+    background-color: white;
     height: 340px;
 }
 </style>

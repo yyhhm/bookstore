@@ -127,8 +127,6 @@ export default {
 }
 
 .cate-nav {
-    width: 1150px;
-    margin-left: 60px;
     position: relative;
 }
 

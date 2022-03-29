@@ -41,5 +41,7 @@ const rounding = value => {
     const realVal = toFixedNum.substring(0, toFixedNum.toString().length - 1)
     return realVal
 }
-
-export { orderMap, time, phone, rounding }
+const price = value => {
+    return value.toFixed(2)
+}
+export { orderMap, time, phone, rounding, price }

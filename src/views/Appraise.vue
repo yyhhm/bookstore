@@ -170,7 +170,6 @@ export default {
 
 <style scoped lang="less">
 .body {
-    width: 100%;
     padding: 20px;
 
     .header {
