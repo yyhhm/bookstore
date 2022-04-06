@@ -45,7 +45,7 @@ export default {
     },
     methods: {
         getUser() {
-            this.$axios.get('/user/info').then(res => {
+            this.axios.get('/user/info').then(res => {
                 this.userData = res.data
                 this.loading = false
             })

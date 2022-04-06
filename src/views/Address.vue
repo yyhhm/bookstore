@@ -90,7 +90,7 @@ export default {
             }
         },
         getAddressList() {
-            this.$axios.get('/address/list').then(res => {
+            this.axios.get('/address/list').then(res => {
                 this.tableData = res.data
             })
         },
@@ -115,7 +115,7 @@ export default {
                 })
         },
         removeAddress(id) {
-            this.$axios
+            this.axios
                 .delete('/address', {
                     params: {
                         id: id,
@@ -127,7 +127,7 @@ export default {
                 })
         },
         setDefault(id) {
-            this.$axios
+            this.axios
                 .put('/address/setDefault', {
                     addressId: id,
                 })

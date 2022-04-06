@@ -20,7 +20,7 @@ export default {
     computed: {},
     methods: {
         getimg() {
-            this.$axios.get('/carousel/list').then(res => {
+            this.axios.get('/carousel/list').then(res => {
                 this.imgDate = res.data
             })
         },

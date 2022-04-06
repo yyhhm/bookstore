@@ -92,14 +92,14 @@ export default {
             this.goods = {}
         },
         getOrderItem(id) {
-            this.$axios.get(`/order-item/${id}`).then(res => {
+            this.axios.get(`/order-item/${id}`).then(res => {
                 this.goods = res.data
             })
         },
         submitForm() {
             this.$refs.formRef.validate(valid => {
                 if (valid) {
-                    this.$axios
+                    this.axios
                         .put('/appraise', {
                             grade: this.form.grade,
                             appraiseContact: this.form.contact,

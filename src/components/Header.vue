@@ -106,7 +106,7 @@ export default {
             this.panelData = this.cateList[index].children
         },
         getCatList() {
-            this.$axios.get('/category/list').then(res => {
+            this.axios.get('/category/list').then(res => {
                 this.cateList = res.data
             })
         },

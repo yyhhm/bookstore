@@ -180,7 +180,7 @@ export default {
     },
     methods: {
         refund(id) {
-            this.$axios
+            this.axios
                 .put('/order/update', {
                     orderId: id,
                     orderStatus: -3,
@@ -194,7 +194,7 @@ export default {
             this.$refs.addAppraiseDialog.open(id)
         },
         handleComfirm(id) {
-            this.$axios
+            this.axios
                 .put('/order/update', {
                     orderId: id,
                     orderStatus: 4,
@@ -205,7 +205,7 @@ export default {
                 })
         },
         closeOrder(id) {
-            this.$axios
+            this.axios
                 .put('/order/update', {
                     orderId: id,
                     orderStatus: -1,
@@ -257,7 +257,7 @@ export default {
             if (parseInt(this.activeName) !== 6) {
                 param.orderStatus = parseInt(this.activeName)
             }
-            this.$axios
+            this.axios
                 .get('/orders', {
                     params: param,
                 })

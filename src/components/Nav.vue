@@ -32,7 +32,7 @@ export default {
     methods: {
         // getNickName() {
         //   console.log("验证登陆账号")
-        //   this.$axios.get("/getNickName").then(res => {
+        //   this.axios.get("/getNickName").then(res => {
         //     this.userName = res.data
         //   })
         // },
@@ -40,7 +40,7 @@ export default {
         // if (sessionStorage.getItem("isLogin") === "true") {
 
         //   this.isLogin = true
-        //   this.$axios.get("/getNickName").then(res => {
+        //   this.axios.get("/getNickName").then(res => {
         //     this.$store.commit('setUserName', res.data);
         //   })
         // } else {
@@ -48,7 +48,7 @@ export default {
         // }
 
         logout() {
-            this.$axios.delete('/logout').then(res => {
+            this.axios.delete('/logout').then(res => {
                 if (res.code === 200) {
                     // sessionStorage.setItem("isLogin", false)
                     this.$store.commit('SET_IsLogin', false)

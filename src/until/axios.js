@@ -20,7 +20,6 @@ axios.interceptors.response.use(res => {
         }
         return new Promise(() => {})
     }
-
     return res.data
 })
 

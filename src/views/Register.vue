@@ -2,7 +2,7 @@
     <div class="back">
         <div class="register">
             <div style="line-height: 50px; text-align: center">
-                <span style="color: #007aff">用户登录</span>
+                <span style="color: #007aff">用户注册</span>
                 <router-link to="/">
                     <span style="float: right" class="ziti">首页</span>
                 </router-link>
@@ -49,7 +49,8 @@
                                 auto-complete="off"
                                 label="验证码:"
                                 placeholder="请输入验证码"
-                            ></el-input>
+                            >
+                            </el-input>
                         </el-col>
                         <el-col :span="10">
                             <!--验证码组件-->
@@ -61,15 +62,15 @@
                     </el-row>
                 </el-form-item>
                 <el-form-item prop="condition">
-                    <el-checkbox v-model="ruleForm.condition" label=""
-                        >注册表示您已同意<a>《注册协议》</a></el-checkbox
-                    >
+                    <el-checkbox v-model="ruleForm.condition" label="">
+                        注册表示您已同意<a>《注册协议》</a>
+                    </el-checkbox>
                 </el-form-item>
 
                 <el-form-item>
-                    <el-button style="width: 100%" type="primary" @click="submitForm"
-                        >立即注册</el-button
-                    >
+                    <el-button style="width: 100%" type="primary" @click="submitForm">
+                        立即注册
+                    </el-button>
                 </el-form-item>
             </el-form>
             <router-link to="/login">
@@ -209,20 +210,16 @@ export default {
         submitForm() {
             this.$refs.registerForm.validate(valid => {
                 if (valid) {
-                    this.$axios
+                    this.axios
                         .post('/register', {
                             loginName: this.ruleForm.username,
                             password: this.ruleForm.password,
                         })
-                        .then(res => {
-                            if (res.code === 200) {
-                                this.$message.success('注册成功')
-                                this.$router.push({
-                                    path: '/login',
-                                })
-                            } else {
-                                this.$message.error(res.data)
-                            }
+                        .then(() => {
+                            this.$message.success('注册成功')
+                            this.$router.push({
+                                path: '/login',
+                            })
                         })
                 } else {
                     console.log('error submit!!')

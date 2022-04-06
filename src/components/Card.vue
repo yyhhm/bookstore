@@ -76,7 +76,7 @@ export default {
             })
         },
         delCollect(id) {
-            this.$axios.delete(`/collect/${id}`).then(res => {
+            this.axios.delete(`/collect/${id}`).then(res => {
                 this.collectId = res.data
                 this.reload()
             })

@@ -195,7 +195,7 @@ export default {
             this.getAppraise()
         },
         getAppraise() {
-            this.$axios
+            this.axios
                 .get('/appraise/list', {
                     params: {
                         pageSize: this.pageSize,
@@ -219,7 +219,7 @@ export default {
         },
         getDetail() {
             console.log('dddd' + this.val)
-            this.$axios.get(`/books/${this.id}`).then(res => {
+            this.axios.get(`/books/${this.id}`).then(res => {
                 this.bookData = res.data
 
                 this.imgData = res.data.bookCoverImg.split('#')
@@ -227,7 +227,7 @@ export default {
             })
         },
         addCollect() {
-            this.$axios
+            this.axios
                 .post('/collect', {
                     bookId: this.id,
                 })
@@ -236,14 +236,14 @@ export default {
                 })
         },
         delCollect() {
-            this.$axios.delete(`/collect/${this.collectId}`).then(res => {
+            this.axios.delete(`/collect/${this.collectId}`).then(res => {
                 this.collectId = res.data
             })
         },
         getCollect() {
             const login = this.$store.state.login
             if (login) {
-                this.$axios.get(`/isCollect/${this.id}`).then(res => {
+                this.axios.get(`/isCollect/${this.id}`).then(res => {
                     this.collectId = res.data
                 })
             } else {
@@ -254,16 +254,15 @@ export default {
             this.actorIndex = index
         },
         addCart() {
-            this.$axios
+            this.axios
                 .post('/addShopCart', {
                     bookId: this.bookData.bookId,
                     bookCount: this.num,
-                    stockNum: this.bookData.stockNum,
                 })
                 .then(res => {
                     if (res.code === 200) {
                         this.$message.success('已加入购物车')
-                        this.$axios.get('/shopCart/items').then(res => {
+                        this.axios.get('/shopCart/items').then(res => {
                             this.$store.commit('setShopCartNum', res.data)
                         })
                     }

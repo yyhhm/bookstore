@@ -57,7 +57,7 @@ export default {
             }
         },
         paySuccess() {
-            this.$axios
+            this.axios
                 .put('/order/update', {
                     orderId: this.orderId,
                     payType: parseInt(this.activeName),

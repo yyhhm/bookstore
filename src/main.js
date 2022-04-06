@@ -7,7 +7,7 @@ import store from './store'
 import less from 'less'
 import axios from './until/axios.js'
 import * as filters from './until/filter.js'
-Vue.prototype.$axios = axios
+Vue.prototype.axios = axios
 Vue.use(less)
 
 Vue.config.productionTip = false

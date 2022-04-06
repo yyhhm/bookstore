@@ -77,12 +77,12 @@ export default {
             })
         },
         getBooks() {
-            this.$axios.get('/books/newBooks').then(res => {
+            this.axios.get('/books/newBooks').then(res => {
                 this.cardData = res.data
             })
         },
         getSale() {
-            this.$axios.get('/books/sale').then(res => {
+            this.axios.get('/books/sale').then(res => {
                 this.saleData = res.data
             })
         },

@@ -117,7 +117,7 @@
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
                     :current-page="submitData.currentPage"
-                    :page-sizes="[8, 12, 16, 20]"
+                    :page-sizes="[12, 18, 24]"
                     :page-size="submitData.pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="total"
@@ -182,7 +182,7 @@ export default {
             this.getBookList()
         },
         addCart(bookId, stockNum) {
-            this.$axios
+            this.axios
                 .post('/addShopCart', {
                     bookId: bookId,
                     bookCount: 1,
@@ -191,7 +191,7 @@ export default {
                 .then(res => {
                     if (res.code === 200) {
                         this.$message.success('已加入购物车')
-                        this.$axios.get('/shopCart/items').then(res => {
+                        this.axios.get('/shopCart/items').then(res => {
                             this.$store.commit('setShopCartNum', res.data)
                         })
                     }
@@ -218,7 +218,7 @@ export default {
         getBookList() {
             const params = {}
             Object.assign(params, this.submitData, this.$route.query)
-            this.$axios
+            this.axios
                 .get('/books/search', {
                     params,
                 })
@@ -237,7 +237,7 @@ export default {
                     id = this.$route.query.tid
                 }
 
-                this.$axios.get(`/categories/${id}`).then(res => {
+                this.axios.get(`/categories/${id}`).then(res => {
                     this.catName = res.data
                 })
             } else {
@@ -295,7 +295,7 @@ export default {
 
         .info {
             height: 180px;
-            width: 100%;
+
             padding: 10px 20px;
             border-bottom: 1px solid #ccc;
 

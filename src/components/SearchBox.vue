@@ -65,7 +65,7 @@ export default {
         getShopCartNum() {
             if (sessionStorage.getItem('isLogin') === 'true') {
                 console.log('验证购物车')
-                this.$axios.get('/shopCart/items').then(res => {
+                this.axios.get('/shopCart/items').then(res => {
                     this.$store.commit('setShopCartNum', res.data)
                 })
             }

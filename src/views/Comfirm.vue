@@ -203,7 +203,7 @@ export default {
             this.order.orderAddress.phone = this.tableData[id].phone
         },
         getAddressList() {
-            this.$axios.get('/address/list').then(res => {
+            this.axios.get('/address/list').then(res => {
                 this.tableData = res.data
                 this.tableData.forEach((item, index) => {
                     if (item.defaultFlag === 1) {
@@ -241,7 +241,7 @@ export default {
                 })
         },
         removeAddress(id) {
-            this.$axios
+            this.axios
                 .delete('/address', {
                     params: {
                         id: id,
@@ -255,7 +255,7 @@ export default {
 
         selectShopCartByIds(ids) {
             console.log('gg' + this.ids)
-            this.$axios.get(`/shopCart/${ids}`).then(res => {
+            this.axios.get(`/shopCart/${ids}`).then(res => {
                 this.shopCart = res.data
                 this.shopCart.forEach(item => {
                     this.totalPrice += item.sellingPrice * item.bookCount
@@ -279,27 +279,27 @@ export default {
                 this.order.orderItems.push(obj)
             })
             if (this.$route.query.ids) {
-                this.$axios
+                this.axios
                     .post('/order', {
                         order: this.order,
                         ids: this.ids,
                     })
                     .then(res => {
                         this.orderId = res.data
-                        this.$axios.get('/shopCart/items').then(res => {
+                        this.axios.get('/shopCart/items').then(res => {
                             console.log('跟新数据')
                             this.$store.commit('setShopCartNum', res.data)
                         })
                         this.$refs.addPayDialog.open()
                     })
             } else {
-                this.$axios
+                this.axios
                     .post('/order', {
                         order: this.order,
                     })
                     .then(res => {
                         this.orderId = res.data
-                        this.$axios.get('/shopCart/items').then(res => {
+                        this.axios.get('/shopCart/items').then(res => {
                             console.log('跟新数据')
                             this.$store.commit('setShopCartNum', res.data)
                         })
@@ -308,7 +308,7 @@ export default {
             }
         },
         getBook(bookId, bookCount) {
-            this.$axios
+            this.axios
                 .get('/comfirm', {
                     params: {
                         bookId: bookId,

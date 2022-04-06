@@ -45,7 +45,7 @@ export default {
     },
     methods: {
         getCollectList() {
-            this.$axios('/collect/list', {
+            this.axios('/collect/list', {
                 params: {
                     currentPage: this.currentPage,
                     pageSize: this.pageSize,

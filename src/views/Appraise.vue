@@ -111,7 +111,7 @@ export default {
             this.getAppraise()
         },
         getAppraise() {
-            this.$axios
+            this.axios
                 .get('/appraise/list1', {
                     params: {
                         pageSize: this.pageSize,
@@ -143,7 +143,7 @@ export default {
                 type: 'warning',
             })
                 .then(() => {
-                    this.$axios
+                    this.axios
                         .delete('/appraise/delByIds', {
                             params: {
                                 ids: ids.join(','),

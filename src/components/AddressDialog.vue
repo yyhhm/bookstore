@@ -120,7 +120,7 @@ export default {
             this.$refs.formRef.validate(valid => {
                 if (valid) {
                     if (this.id) {
-                        this.$axios
+                        this.axios
                             .put('/address', {
                                 addressId: this.id,
                                 name: this.ruleForm.name,
@@ -139,7 +139,7 @@ export default {
                                 }
                             })
                     } else {
-                        this.$axios
+                        this.axios
                             .post('/address', {
                                 name: this.ruleForm.name,
                                 phone: this.ruleForm.phone,
@@ -161,7 +161,7 @@ export default {
             })
         },
         async getDetail(id) {
-            await this.$axios.get(`/address/${id}`).then(res => {
+            await this.axios.get(`/address/${id}`).then(res => {
                 this.ruleForm.name = res.data.name
                 this.ruleForm.phone = res.data.phone
                 this.ruleForm.detailAddress = res.data.detailAddress

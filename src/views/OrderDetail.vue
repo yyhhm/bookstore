@@ -167,7 +167,7 @@ export default {
             }
         },
         getOrder() {
-            this.$axios.get(`/order/${this.orderId}`).then(res => {
+            this.axios.get(`/order/${this.orderId}`).then(res => {
                 this.order = res.data
             })
         },

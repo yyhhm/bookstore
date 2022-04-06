@@ -60,7 +60,7 @@ export default {
     methods: {
         open() {
             this.dialogFormVisible = true
-            this.$axios.get('/user/info').then(res => {
+            this.axios.get('/user/info').then(res => {
                 this.ruleForm.introduceSign = res.data.introduceSign
                 this.ruleForm.sex = res.data.sex
                 this.ruleForm.nickName = res.data.nickName
@@ -71,7 +71,7 @@ export default {
             this.dialogFormVisible = false
         },
         submitForm() {
-            this.$axios
+            this.axios
                 .put('/user/edit', {
                     nickName: this.ruleForm.nickName,
                     introduceSign: this.ruleForm.introduceSign,
@@ -79,7 +79,7 @@ export default {
                 })
                 .then(res => {
                     this.$message.success('修改成功')
-                    this.$axios.get('/getNickName').then(res => {
+                    this.axios.get('/getNickName').then(res => {
                         this.$store.commit('setUserName', res.data)
                     })
                     this.reload()

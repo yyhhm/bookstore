@@ -156,7 +156,7 @@ export default {
         },
         // 更新购物车每项的购买数量
         numChange(newVal, oldVal, id) {
-            this.$axios
+            this.axios
                 .put('/shopCart/updateNum', {
                     cartItemId: id,
                     bookCount: newVal,
@@ -209,7 +209,7 @@ export default {
             this.getCartList()
         },
         getCartList() {
-            this.$axios
+            this.axios
                 .get('/shopCart/list', {
                     params: {
                         currentPage: this.currentPage,

@@ -153,23 +153,18 @@ export default {
         submitForm() {
             this.$refs.loginForm.validate(valid => {
                 if (valid) {
-                    this.$axios
+                    this.axios
                         .post('/login', {
                             loginName: this.ruleForm.username,
                             password: this.ruleForm.password,
                         })
                         .then(res => {
-                            if (res.code === 200) {
-                                this.$message.success('登录成功')
-                                console.log('ff' + res.data)
-                                window.localStorage.setItem('token', res.data)
-                                window.location.href = '/'
-                            } else {
-                                this.$message.error(res.data)
-                            }
+                            this.$message.success('登录成功')
+                            window.localStorage.setItem('token', res.data)
+                            window.location.href = '/'
                         })
                 } else {
-                    console.log('error submit!!')
+                    console.log('提交失败')
                     return false
                 }
             })
